@@ -1,0 +1,24 @@
+/* Shared AIQ Manage styles — inlined into each page at build/deploy (kept here as the source of truth) */
+:root{
+  --bg:#0b0e14; --panel:#151a24; --line:#2a3345; --text:#e8ecf4; --dim:#9aa5b8; --gold:#e8b33c; --blue:#5aa9ff;
+  --sat:env(safe-area-inset-top,0px);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:17px;line-height:1.6}
+a{color:var(--blue)}
+.wrap{max-width:760px;margin:0 auto;padding:calc(28px + var(--sat)) 20px 60px}
+header.top{display:flex;align-items:center;gap:12px;margin-bottom:28px}
+header.top svg{flex:none}
+header.top .brand{font-weight:800;font-size:20px;letter-spacing:.3px}
+header.top .brand b{color:var(--gold)}
+h1{font-size:30px;font-weight:800;margin:8px 0 6px;letter-spacing:-.2px}
+h2{font-size:16px;text-transform:uppercase;letter-spacing:1.2px;color:var(--gold);margin:30px 0 10px}
+p{margin:12px 0;color:#d3d9e6}
+.lead{color:var(--dim);font-size:18px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;margin:16px 0}
+ul{margin:12px 0 12px 22px}li{margin:7px 0;color:#d3d9e6}
+.muted{color:var(--dim);font-size:14.5px}
+.pill{display:inline-block;background:#221d10;color:var(--gold);border:1px solid #6b5a1f;border-radius:20px;padding:4px 12px;font-size:13px;font-weight:700}
+footer{margin-top:44px;border-top:1px solid var(--line);padding-top:18px;color:var(--dim);font-size:14px}
+.applink{display:inline-flex;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;text-decoration:none;color:var(--text);font-weight:700;margin:8px 8px 0 0}
+.applink .ico{width:34px;height:34px;flex:none}
