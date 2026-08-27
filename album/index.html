@@ -128,7 +128,8 @@ button{font:inherit;cursor:pointer;border:none;border-radius:12px}
 var BASE = "https://knightswatch.tailb6c44b.ts.net";
 var KEYSTORE = "aiq_album_key";
 var key = "";
-var items = [];   // [{name,size,type,ts}]
+var owner = false;  // true only for the master key; viewers can add/view/download, never delete
+var items = [];     // [{name,size,type,ts}]
 var cur = -1;
 
 function $(id){ return document.getElementById(id); }
@@ -144,11 +145,11 @@ function unlock(){
   if (!k) return;
   $("lockerr").textContent = "";
   $("unlock").disabled = true;
-  probe(k).then(function(list){
-    if (list === null){ $("lockerr").textContent = "Wrong password. Try again."; $("pw").select(); return; }
+  probe(k).then(function(res){
+    if (res === null){ $("lockerr").textContent = "Wrong password. Try again."; $("pw").select(); return; }
     key = k;
     try { localStorage.setItem(KEYSTORE, k); } catch(e){}
-    items = list;
+    items = res.items; owner = !!res.owner;
     showGallery();
   }).catch(function(){
     $("lockerr").textContent = "Album server unreachable. Try again in a minute.";
@@ -169,9 +170,9 @@ function showGallery(){
   render();
 }
 function refresh(){
-  return probe(key).then(function(list){
-    if (list === null){ location.reload(); return; }
-    items = list; render();
+  return probe(key).then(function(res){
+    if (res === null){ location.reload(); return; }
+    items = res.items; owner = !!res.owner; render();
   }).catch(function(){});
 }
 $("refresh").addEventListener("click", refresh);
@@ -204,6 +205,7 @@ function openLB(i){
   cur = i;
   var it = items[i];
   $("lbname").textContent = it.name;
+  $("lbdel").style.display = owner ? "flex" : "none";   // delete is owner-only (server enforces too)
   var st = $("stage");
   st.querySelectorAll("img,video").forEach(function(n){ n.remove(); });
   var el;
@@ -347,9 +349,9 @@ function uploadAll(files){
   var k = "";
   try { k = localStorage.getItem(KEYSTORE) || ""; } catch(e){}
   if (!k) return;
-  probe(k).then(function(list){
-    if (list === null){ try { localStorage.removeItem(KEYSTORE); } catch(e){} return; }
-    key = k; items = list; showGallery();
+  probe(k).then(function(res){
+    if (res === null){ try { localStorage.removeItem(KEYSTORE); } catch(e){} return; }
+    key = k; items = res.items; owner = !!res.owner; showGallery();
   }).catch(function(){});
 })();
 </script>
