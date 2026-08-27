@@ -67,8 +67,17 @@ button{font:inherit;cursor:pointer;border:none;border-radius:12px}
 <body>
 <div class="wrap">
   <header class="top">
-    <svg width="30" height="30" viewBox="0 0 48 48" fill="none" aria-hidden="true"><rect x="4" y="10" width="40" height="30" rx="6" stroke="#e8b33c" stroke-width="3"/><circle cx="16" cy="21" r="4" stroke="#e8ecf4" stroke-width="3"/><path d="M8 36l10-9 8 7 7-6 9 8" stroke="#e8ecf4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    <div class="brand">A<b>i</b>Q Album</div>
+    <!-- official AiQ mark (assets/aiq-mark.svg) - slice-gap stops match --bg -->
+    <svg width="50" height="30" viewBox="0 0 300 180" aria-label="AiQ" role="img">
+      <defs><linearGradient id="albicut" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="48.5%" stop-color="#e8b33c"/><stop offset="48.5%" stop-color="#0b0e14"/>
+        <stop offset="51.5%" stop-color="#0b0e14"/><stop offset="51.5%" stop-color="#f5f7fb"/></linearGradient></defs>
+      <text x="8" y="142" font-family="-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="150" font-weight="900" fill="#e8b33c">A</text>
+      <circle cx="124" cy="46" r="16" fill="url(#albicut)"/>
+      <rect x="111" y="72" width="26" height="70" rx="6" fill="url(#albicut)"/>
+      <text x="131" y="142" font-family="-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="150" font-weight="900" fill="#f5f7fb">Q</text>
+    </svg>
+    <div class="brand">Album</div>
     <div class="spacer"></div>
     <button class="btn" id="lockbtn" style="display:none" title="Lock album">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>Lock
