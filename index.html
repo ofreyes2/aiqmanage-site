@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <meta name="description" content="AIQ Manage — intelligent apps that manage your life. Private, on-device iOS apps: StockIQ Pro, VaultIQ, GarageIQ, CaddieIQ, WideIQ, NightIQ Sleep and more.">
 <title>AIQ Manage — intelligent apps that manage your life</title>
 <style>
@@ -13,7 +14,7 @@ a{color:var(--blue);text-decoration:none}
 a:hover{text-decoration:underline}
 .wrap{max-width:900px;margin:0 auto;padding:calc(40px + var(--sat)) 20px 60px}
 .hero{text-align:center;margin-bottom:26px}
-.mark{width:84px;height:84px;margin:0 auto 16px;display:block}
+.mark{width:220px;height:132px;margin:0 auto 4px;display:block}
 h1{font-size:38px;font-weight:800;letter-spacing:-.4px}
 h1 b{color:var(--gold)}
 .lead{color:var(--dim);font-size:19px;max-width:560px;margin:10px auto 0}
@@ -35,21 +36,19 @@ footer .say{font-size:12.5px;margin-top:6px}
 <body>
 <div class="wrap">
   <div class="hero">
-    <svg class="mark" viewBox="0 0 32 24" fill="none" stroke="#e8b33c" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <rect x="1.5" y="2.5" width="29" height="19" rx="5"/>
-      <!-- A -->
-      <path d="M5.4 16.5l2.3-8.4a.6.6 0 0 1 1.2 0l2.3 8.4"/>
-      <path d="M6.3 13.6h4.0"/>
-      <!-- I: bright bar + dot so the letter can never be missed -->
-      <g stroke="#f5f7fb">
-        <path d="M16 10.6v5.9"/>
-        <path d="M16 7.6v.01"/>
-      </g>
-      <!-- Q -->
-      <circle cx="23.4" cy="12.4" r="3.6"/>
-      <path d="M25.6 14.9l2.0 2.0"/>
+    <!-- The AiQ wordmark: gold A and white Q both touching the shared i, whose
+         dot and stem are each sliced diagonally - the gold halves finish "Ai",
+         the white halves start "iQ". Chosen by Oscar 2026-08-26. -->
+    <svg class="mark" viewBox="0 0 300 180" aria-label="AiQ" role="img">
+      <defs><linearGradient id="icut" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="48.5%" stop-color="#e8b33c"/><stop offset="48.5%" stop-color="#0b0e14"/>
+        <stop offset="51.5%" stop-color="#0b0e14"/><stop offset="51.5%" stop-color="#f5f7fb"/></linearGradient></defs>
+      <text x="8" y="142" font-family="-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="150" font-weight="900" fill="#e8b33c">A</text>
+      <circle cx="124" cy="46" r="16" fill="url(#icut)"/>
+      <rect x="111" y="72" width="26" height="70" rx="6" fill="url(#icut)"/>
+      <text x="131" y="142" font-family="-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="150" font-weight="900" fill="#f5f7fb">Q</text>
     </svg>
-    <h1><b>AIQ</b> Manage</h1>
+    <h1>Manage</h1>
     <p class="lead">Intelligent apps that manage your life. Private by design — most run entirely on your device, with no accounts and no tracking.</p>
     <nav class="nav">
       <a href="support/">Support</a>
