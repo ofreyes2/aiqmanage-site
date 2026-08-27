@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<title>Album — AIQ Manage</title>
+<style>
+:root{--bg:#0b0e14;--panel:#151a24;--line:#2a3345;--text:#e8ecf4;--dim:#9aa5b8;--gold:#e8b33c;--blue:#5aa9ff;--red:#e05a5a;--sat:env(safe-area-inset-top,0px)}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:17px;line-height:1.5}
+.wrap{max-width:1060px;margin:0 auto;padding:calc(22px + var(--sat)) 16px 60px}
+header.top{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+header.top .brand{font-weight:800;font-size:20px;letter-spacing:.3px}
+header.top .brand b{color:var(--gold)}
+header.top .spacer{flex:1}
+button{font:inherit;cursor:pointer;border:none;border-radius:12px}
+.btn{background:var(--panel);border:1px solid var(--line);color:var(--text);font-weight:700;padding:10px 16px;display:inline-flex;align-items:center;gap:8px}
+.btn.gold{background:#221d10;border-color:#6b5a1f;color:var(--gold)}
+.btn:active{transform:scale(.97)}
+.btn svg{width:17px;height:17px;flex:none}
+
+/* lock screen */
+#lock{max-width:380px;margin:12vh auto 0;text-align:center}
+#lock .keyico{width:52px;height:52px;margin:0 auto 14px;color:var(--gold)}
+#lock h1{font-size:26px;font-weight:800;margin-bottom:6px}
+#lock p{color:var(--dim);font-size:15px;margin-bottom:22px}
+#lock input{width:100%;background:var(--panel);border:1px solid var(--line);border-radius:12px;color:var(--text);font-size:18px;padding:13px 16px;text-align:center;outline:none;letter-spacing:.5px}
+#lock input:focus{border-color:var(--gold)}
+#lock .btn{width:100%;justify-content:center;margin-top:12px;padding:13px}
+#lockerr{color:var(--red);font-size:14.5px;font-weight:600;margin-top:12px;min-height:20px}
+
+/* gallery */
+#gal{display:none}
+.bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.bar .count{color:var(--dim);font-size:14px;font-weight:600}
+.bar .spacer{flex:1}
+#prog{display:none;margin:0 0 14px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+#prog .lbl{font-size:13.5px;color:var(--dim);margin-bottom:8px;font-weight:600}
+#prog .track{height:8px;background:#0e1219;border-radius:4px;overflow:hidden}
+#prog .fill{height:100%;width:0%;background:var(--gold);border-radius:4px;transition:width .15s}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.tile{position:relative;aspect-ratio:1;border-radius:12px;overflow:hidden;background:var(--panel);border:1px solid var(--line);cursor:pointer}
+.tile img{width:100%;height:100%;object-fit:cover;display:block}
+.tile .vid{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,#141926,#0d1017)}
+.tile .vid svg{width:40px;height:40px;color:var(--gold)}
+.tile .vid .nm{font-size:11.5px;color:var(--dim);max-width:88%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}
+.empty{color:var(--dim);text-align:center;padding:60px 20px;font-size:15.5px}
+
+/* lightbox */
+#lb{display:none;position:fixed;inset:0;background:rgba(5,7,11,.96);z-index:50;flex-direction:column}
+#lb.open{display:flex}
+#lb .lbtop{display:flex;align-items:center;gap:8px;padding:calc(10px + var(--sat)) 14px 10px}
+#lb .fname{color:var(--dim);font-size:13.5px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+#lb .ib{background:rgba(21,26,36,.9);border:1px solid var(--line);color:var(--text);width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex:none}
+#lb .ib svg{width:19px;height:19px}
+#lb .ib.del{color:var(--red)}
+#lb .stage{flex:1;display:flex;align-items:center;justify-content:center;min-height:0;position:relative;touch-action:pan-y}
+#lb .stage img,#lb .stage video{max-width:100%;max-height:100%;object-fit:contain}
+#lb .nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(21,26,36,.85);border:1px solid var(--line);color:var(--text);width:44px;height:60px;border-radius:12px;display:flex;align-items:center;justify-content:center}
+#lb .nav svg{width:22px;height:22px}
+#lb .nav.prev{left:10px}#lb .nav.next{right:10px}
+@media(max-width:640px){#lb .nav{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <svg width="30" height="30" viewBox="0 0 48 48" fill="none" aria-hidden="true"><rect x="4" y="10" width="40" height="30" rx="6" stroke="#e8b33c" stroke-width="3"/><circle cx="16" cy="21" r="4" stroke="#e8ecf4" stroke-width="3"/><path d="M8 36l10-9 8 7 7-6 9 8" stroke="#e8ecf4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="brand">A<b>i</b>Q Album</div>
+    <div class="spacer"></div>
+    <button class="btn" id="lockbtn" style="display:none" title="Lock album">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>Lock
+    </button>
+  </header>
+
+  <div id="lock">
+    <svg class="keyico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="10" width="16" height="11" rx="2.5"/><path d="M8 10V7a4 4 0 018 0v3"/><circle cx="12" cy="15.5" r="1.6" fill="currentColor" stroke="none"/></svg>
+    <h1>Private Album</h1>
+    <p>Enter the album password to view photos and videos.</p>
+    <input id="pw" type="password" autocomplete="current-password" placeholder="Password" enterkeyhint="go">
+    <button class="btn gold" id="unlock">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Open Album
+    </button>
+    <div id="lockerr"></div>
+  </div>
+
+  <div id="gal">
+    <div class="bar">
+      <button class="btn gold" id="upbtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 16V4M6 10l6-6 6 6"/><path d="M4 20h16"/></svg>Upload
+      </button>
+      <input id="file" type="file" accept="image/*,video/*" multiple style="display:none">
+      <span class="count" id="count"></span>
+      <div class="spacer"></div>
+      <button class="btn" id="refresh">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12a8 8 0 11-2.3-5.6M20 3v5h-5"/></svg>Refresh
+      </button>
+    </div>
+    <div id="prog"><div class="lbl" id="proglbl"></div><div class="track"><div class="fill" id="progfill"></div></div></div>
+    <div class="grid" id="grid"></div>
+    <div class="empty" id="empty" style="display:none">No photos or videos yet. Tap Upload to add some.</div>
+  </div>
+</div>
+
+<div id="lb">
+  <div class="lbtop">
+    <div class="fname" id="lbname"></div>
+    <button class="ib" id="lbdl" title="Download">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4v12M6 10l6 6 6-6"/><path d="M4 20h16"/></svg>
+    </button>
+    <button class="ib del" id="lbdel" title="Delete">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M9 7V5a1 1 0 011-1h4a1 1 0 011 1v2M6 7l1 13a1 1 0 001 1h8a1 1 0 001-1l1-13"/></svg>
+    </button>
+    <button class="ib" id="lbx" title="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <div class="stage" id="stage">
+    <button class="nav prev" id="lbprev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <button class="nav next" id="lbnext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg></button>
+  </div>
+</div>
+
+<script>
+"use strict";
+var BASE = "https://knightswatch.tailb6c44b.ts.net";
+var KEYSTORE = "aiq_album_key";
+var key = "";
+var items = [];   // [{name,size,type,ts}]
+var cur = -1;
+
+function $(id){ return document.getElementById(id); }
+function mediaURL(name){ return BASE + "/album/media/" + encodeURIComponent(name) + "?k=" + encodeURIComponent(key); }
+
+// ---------- auth ----------
+function probe(k){
+  return fetch(BASE + "/album/list?k=" + encodeURIComponent(k))
+    .then(function(r){ if (r.status === 401) return null; if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); });
+}
+function unlock(){
+  var k = $("pw").value.trim();
+  if (!k) return;
+  $("lockerr").textContent = "";
+  $("unlock").disabled = true;
+  probe(k).then(function(list){
+    if (list === null){ $("lockerr").textContent = "Wrong password. Try again."; $("pw").select(); return; }
+    key = k;
+    try { localStorage.setItem(KEYSTORE, k); } catch(e){}
+    items = list;
+    showGallery();
+  }).catch(function(){
+    $("lockerr").textContent = "Album server unreachable. Try again in a minute.";
+  }).finally(function(){ $("unlock").disabled = false; });
+}
+$("unlock").addEventListener("click", unlock);
+$("pw").addEventListener("keydown", function(e){ if (e.key === "Enter") unlock(); });
+$("lockbtn").addEventListener("click", function(){
+  try { localStorage.removeItem(KEYSTORE); } catch(e){}
+  location.reload();
+});
+
+// ---------- gallery ----------
+function showGallery(){
+  $("lock").style.display = "none";
+  $("gal").style.display = "block";
+  $("lockbtn").style.display = "inline-flex";
+  render();
+}
+function refresh(){
+  return probe(key).then(function(list){
+    if (list === null){ location.reload(); return; }
+    items = list; render();
+  }).catch(function(){});
+}
+$("refresh").addEventListener("click", refresh);
+
+function render(){
+  var g = $("grid");
+  g.innerHTML = "";
+  $("count").textContent = items.length ? items.length + " item" + (items.length === 1 ? "" : "s") : "";
+  $("empty").style.display = items.length ? "none" : "block";
+  items.forEach(function(it, i){
+    var t = document.createElement("div");
+    t.className = "tile";
+    if (it.type === "image"){
+      var im = document.createElement("img");
+      im.loading = "lazy"; im.alt = it.name; im.src = mediaURL(it.name);
+      t.appendChild(im);
+    } else {
+      t.innerHTML = "<div class='vid'><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.8'>" +
+        "<circle cx='12' cy='12' r='9'/><path d='M10 8.5l6 3.5-6 3.5z' fill='currentColor' stroke='none'/></svg>" +
+        "<span class='nm'></span></div>";
+      t.querySelector(".nm").textContent = it.name;
+    }
+    t.addEventListener("click", function(){ openLB(i); });
+    g.appendChild(t);
+  });
+}
+
+// ---------- lightbox ----------
+function openLB(i){
+  cur = i;
+  var it = items[i];
+  $("lbname").textContent = it.name;
+  var st = $("stage");
+  st.querySelectorAll("img,video").forEach(function(n){ n.remove(); });
+  var el;
+  if (it.type === "video"){
+    el = document.createElement("video");
+    el.controls = true; el.playsInline = true; el.setAttribute("playsinline", "");
+    el.preload = "metadata"; el.src = mediaURL(it.name);
+  } else {
+    el = document.createElement("img");
+    el.alt = it.name; el.src = mediaURL(it.name);
+  }
+  st.appendChild(el);
+  $("lb").classList.add("open");
+}
+function closeLB(){
+  $("lb").classList.remove("open");
+  $("stage").querySelectorAll("img,video").forEach(function(n){ n.remove(); });
+  cur = -1;
+}
+function step(d){
+  if (!items.length || cur < 0) return;
+  openLB((cur + d + items.length) % items.length);
+}
+$("lbx").addEventListener("click", closeLB);
+$("lbprev").addEventListener("click", function(e){ e.stopPropagation(); step(-1); });
+$("lbnext").addEventListener("click", function(e){ e.stopPropagation(); step(1); });
+document.addEventListener("keydown", function(e){
+  if (!$("lb").classList.contains("open")) return;
+  if (e.key === "Escape") closeLB();
+  if (e.key === "ArrowLeft") step(-1);
+  if (e.key === "ArrowRight") step(1);
+});
+(function(){  // swipe
+  var x0 = null;
+  var st = $("stage");
+  st.addEventListener("touchstart", function(e){ if (e.touches.length === 1) x0 = e.touches[0].clientX; }, {passive:true});
+  st.addEventListener("touchend", function(e){
+    if (x0 === null) return;
+    var dx = e.changedTouches[0].clientX - x0; x0 = null;
+    if (Math.abs(dx) > 60) step(dx < 0 ? 1 : -1);
+  }, {passive:true});
+})();
+
+$("lbdl").addEventListener("click", function(){
+  if (cur < 0) return;
+  var it = items[cur];
+  fetch(mediaURL(it.name)).then(function(r){ return r.blob(); }).then(function(b){
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(b); a.download = it.name;
+    document.body.appendChild(a); a.click();
+    setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 4000);
+  }).catch(function(){ alert("Download failed."); });
+});
+$("lbdel").addEventListener("click", function(){
+  if (cur < 0) return;
+  var it = items[cur];
+  if (!confirm("Delete " + it.name + " forever?")) return;
+  fetch(BASE + "/album/delete?k=" + encodeURIComponent(key), {
+    method: "POST", headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({name: it.name})
+  }).then(function(r){ return r.json(); }).then(function(j){
+    if (!j.ok){ alert("Delete failed: " + (j.error || "unknown")); return; }
+    closeLB(); refresh();
+  }).catch(function(){ alert("Delete failed."); });
+});
+
+// ---------- upload ----------
+var CHUNK = 4 * 1024 * 1024;          // 4MB binary per part
+$("upbtn").addEventListener("click", function(){ $("file").click(); });
+$("file").addEventListener("change", function(){
+  var files = Array.prototype.slice.call(this.files);
+  this.value = "";
+  if (files.length) uploadAll(files);
+});
+
+function b64(buf){
+  var u8 = new Uint8Array(buf), s = "";
+  for (var i = 0; i < u8.length; i += 0x8000)
+    s += String.fromCharCode.apply(null, u8.subarray(i, i + 0x8000));
+  return btoa(s);
+}
+function api(obj){
+  return fetch(BASE + "/album/upload?k=" + encodeURIComponent(key), {
+    method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(obj)
+  }).then(function(r){ return r.json().then(function(j){ if (!r.ok || j.error) throw new Error(j.error || ("HTTP " + r.status)); return j; }); });
+}
+function setProg(lbl, frac){
+  $("prog").style.display = "block";
+  $("proglbl").textContent = lbl;
+  $("progfill").style.width = Math.round(frac * 100) + "%";
+}
+function uploadOne(f, idx, total){
+  var tag = "(" + (idx + 1) + "/" + total + ") " + f.name;
+  if (f.size <= CHUNK){
+    setProg("Uploading " + tag, 0);
+    return f.arrayBuffer().then(function(buf){
+      return api({name: f.name, b64: b64(buf)});
+    }).then(function(){ setProg("Uploaded " + tag, 1); });
+  }
+  var uid = null;
+  return api({op: "begin", name: f.name}).then(function(j){
+    uid = j.upload_id;
+    var off = 0;
+    function next(){
+      if (off >= f.size) return api({op: "done", upload_id: uid});
+      var end = Math.min(off + CHUNK, f.size);
+      return f.slice(off, end).arrayBuffer().then(function(buf){
+        return api({op: "part", upload_id: uid, b64: b64(buf)});
+      }).then(function(){
+        off = end;
+        setProg("Uploading " + tag, off / f.size);
+        return next();
+      });
+    }
+    setProg("Uploading " + tag, 0);
+    return next();
+  }).catch(function(e){
+    if (uid) api({op: "abort", upload_id: uid}).catch(function(){});
+    throw e;
+  });
+}
+function uploadAll(files){
+  $("upbtn").disabled = true;
+  var p = Promise.resolve();
+  files.forEach(function(f, i){
+    p = p.then(function(){ return uploadOne(f, i, files.length); });
+  });
+  p.then(function(){
+    setProg("Done", 1);
+    setTimeout(function(){ $("prog").style.display = "none"; }, 1200);
+  }).catch(function(e){
+    setProg("Upload failed: " + e.message, 0);
+  }).finally(function(){
+    $("upbtn").disabled = false;
+    refresh();
+  });
+}
+
+// ---------- boot ----------
+(function(){
+  var k = "";
+  try { k = localStorage.getItem(KEYSTORE) || ""; } catch(e){}
+  if (!k) return;
+  probe(k).then(function(list){
+    if (list === null){ try { localStorage.removeItem(KEYSTORE); } catch(e){} return; }
+    key = k; items = list; showGallery();
+  }).catch(function(){});
+})();
+</script>
+</body>
+</html>
