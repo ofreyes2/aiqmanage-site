@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 180" aria-label="AiQ" role="img">
+  <!-- AiQ - official brand mark of AIQ Manage (chosen by Oscar 2026-08-26).
+       Gold A and white Q both touch the shared lowercase i, whose dot AND stem
+       are each sliced diagonally: the gold halves finish "Ai", the white halves
+       start "iQ". Colors: gold #e8b33c, white #f5f7fb, slice gap = background
+       (#0b0e14 - swap this stop color to match the surface it sits on).
+       For future projects: this AiQ mark is the constant; pair it with the
+       product word ("Manage" today) set separately beneath or beside it. -->
+  <defs>
+    <linearGradient id="aiq-icut" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="48.5%" stop-color="#e8b33c"/>
+      <stop offset="48.5%" stop-color="#0b0e14"/>
+      <stop offset="51.5%" stop-color="#0b0e14"/>
+      <stop offset="51.5%" stop-color="#f5f7fb"/>
+    </linearGradient>
+  </defs>
+  <text x="8" y="142" font-family="-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="150" font-weight="900" fill="#e8b33c">A</text>
+  <circle cx="124" cy="46" r="16" fill="url(#aiq-icut)"/>
+  <rect x="111" y="72" width="26" height="70" rx="6" fill="url(#aiq-icut)"/>
+  <text x="131" y="142" font-family="-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="150" font-weight="900" fill="#f5f7fb">Q</text>
+</svg>
