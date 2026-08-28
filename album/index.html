@@ -67,17 +67,16 @@ button{font:inherit;cursor:pointer;border:none;border-radius:12px}
 <body>
 <div class="wrap">
   <header class="top">
-    <!-- Brand rule (Oscar): at small sizes use the sliced-i BADGE (favicon
-         form), never the shrunken wordmark - the slice dies below ~100px. -->
-    <svg width="32" height="32" viewBox="0 0 64 64" aria-label="AiQ" role="img">
-      <defs><linearGradient id="albicut" x1="0%" y1="0%" x2="100%" y2="100%">
+    <svg width="100" height="60" viewBox="0 0 300 180" aria-label="AiQ" role="img">
+      <defs><linearGradient id="aiqwm" x1="0%" y1="0%" x2="100%" y2="100%">
         <stop offset="47%" stop-color="#e8b33c"/><stop offset="47%" stop-color="#0b0e14"/>
         <stop offset="53%" stop-color="#0b0e14"/><stop offset="53%" stop-color="#f5f7fb"/></linearGradient></defs>
-      <rect width="64" height="64" rx="14" fill="#151a24" stroke="#2a3345"/>
-      <circle cx="32" cy="17" r="8.5" fill="url(#albicut)"/>
-      <rect x="25" y="30" width="14" height="26" rx="4" fill="url(#albicut)"/>
+      <text x="8" y="142" font-family="-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="150" font-weight="900" fill="#e8b33c">A</text>
+      <circle cx="124" cy="46" r="16" fill="url(#aiqwm)"/>
+      <rect x="111" y="72" width="26" height="70" rx="6" fill="url(#aiqwm)"/>
+      <text x="131" y="142" font-family="-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="150" font-weight="900" fill="#f5f7fb">Q</text>
     </svg>
-    <div class="brand"><b>A</b>iQ Album</div>
+    <div class="brand">Album</div>
     <div class="spacer"></div>
     <button class="btn" id="lockbtn" style="display:none" title="Lock album">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>Lock
@@ -137,7 +136,7 @@ button{font:inherit;cursor:pointer;border:none;border-radius:12px}
 var BASE = "https://knightswatch.tailb6c44b.ts.net";
 var KEYSTORE = "aiq_album_key";
 var key = "";
-var owner = false;  // true only for the master key; viewers can add/view/download, never delete
+var owner = false;  // owner keys: view/download/upload/delete; family: view/download ONLY
 var items = [];     // [{name,size,type,ts}]
 var cur = -1;
 
@@ -176,6 +175,7 @@ function showGallery(){
   $("lock").style.display = "none";
   $("gal").style.display = "block";
   $("lockbtn").style.display = "inline-flex";
+  $("upbtn").style.display = owner ? "inline-flex" : "none";
   render();
 }
 function refresh(){
@@ -215,6 +215,7 @@ function openLB(i){
   var it = items[i];
   $("lbname").textContent = it.name;
   $("lbdel").style.display = owner ? "flex" : "none";   // delete is owner-only (server enforces too)
+  $("upbtn").style.display = owner ? "inline-flex" : "none";  // upload too (Oscar 2026-08-27)
   var st = $("stage");
   st.querySelectorAll("img,video").forEach(function(n){ n.remove(); });
   var el;

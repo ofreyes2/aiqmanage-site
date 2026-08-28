@@ -1,8 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
 <defs><linearGradient id="c" x1="0%" y1="0%" x2="100%" y2="100%">
-<stop offset="48.5%" stop-color="#e8b33c"/><stop offset="48.5%" stop-color="#0b0e14"/>
-<stop offset="51.5%" stop-color="#0b0e14"/><stop offset="51.5%" stop-color="#f5f7fb"/></linearGradient></defs>
+<stop offset="46%" stop-color="#e8b33c"/><stop offset="46%" stop-color="#0b0e14"/>
+<stop offset="54%" stop-color="#0b0e14"/><stop offset="54%" stop-color="#f5f7fb"/></linearGradient></defs>
 <rect width="64" height="64" rx="14" fill="#0b0e14"/>
-<circle cx="32" cy="17" r="8.5" fill="url(#c)"/>
-<rect x="25" y="30" width="14" height="26" rx="4" fill="url(#c)"/>
-</svg>
+<g transform="translate(2,7) scale(0.2)">
+<text x="8" y="142" font-family="Arial,Helvetica,sans-serif" font-size="150" font-weight="900" fill="#e8b33c">A</text>
+<circle cx="124" cy="46" r="16" fill="url(#c)"/>
+<rect x="111" y="72" width="26" height="70" rx="6" fill="url(#c)"/>
+<text x="131" y="142" font-family="Arial,Helvetica,sans-serif" font-size="150" font-weight="900" fill="#f5f7fb">Q</text>
+</g></svg>
