@@ -1,6 +1,354 @@
 [
- {"slug":"suiteiq","shots":"fourseasons","name":"SuiteIQ","brandword":"SuiteIQ","public":true,"status":"testflight","pitch":"Every luxury hotel and cruise, every date, one screen. Then book through your advisor for the perks.","blurb":"SuiteIQ reads the public booking feeds of Four Seasons, Waldorf Astoria, Conrad and LXR for 13 months of nightly rates and every room type, plus eleven cruise lines from Seabourn to Virgin Voyages with per-person fares by sailing. Filter by state, brand, month, length or price, tap two calendar days to total a stay, and send a quote request to a Preferred Partner or Virtuoso advisor with everything filled in.","features":["67 US luxury hotels with 13 months of lowest nightly rates and 1,500+ room types","6,500+ cruise sailings across 11 lines, weekend getaways included","Quote requests that name the advisor amenities: breakfast, credits, upgrades, Virtuoso Voyages","Live filter counts so a number never promises more than the list shows"],"links":[["Ask about TestFlight","mailto:support@aiqmanage.com?subject=SuiteIQ"]],"privacy":"Rates are read from the hotels' and cruise lines' own public booking sites. Your name, email and advisor list stay on your device."},
- {"slug":"readiq","shots":"reader","name":"ReadIQ: Article Reader","brandword":"ReadIQ","public":true,"status":"testflight","pitch":"Paste a link, read it clean. Any article, reader mode, saved for later, read aloud.","blurb":"ReadIQ opens the page in a real browser, keeps only the article, and shows the text with your typography. Save articles to read offline, listen with the device voice, and share from Safari straight into the app. When a site refuses a server, the app reads it on your iPhone with your own logins.","features":["Reader mode for any page, with size, serif or sans, and light, sepia or dark themes","Offline library with full text","Listen mode, tap a paragraph to jump","Share-sheet extension and bookmarklet"],"links":[["Ask about TestFlight","mailto:support@aiqmanage.com?subject=ReadIQ"]],"privacy":"Articles you save stay in the app. Nothing is sent anywhere except to the site you asked to read."},
- {"slug":"cutiq","shots":"cutiq","name":"CutIQ","brandword":"CutIQ","public":true,"status":"testflight","pitch":"A design studio for your Silhouette cutter, iPad first, with an AI copilot.","blurb":"Draw, type, size and weld designs on a 12 by 12 or 12 by 24 mat, in inches or millimetres, then export true-size SVG, DXF or PNG for Silhouette Studio. Twelve bundled fonts plus runtime font install, image tracing, offset and weld, layers and undo.","features":["DXF export that Silhouette Studio imports for free","Text to real cut paths in 12 fonts, install more at runtime","Trace a photo into a cuttable shape","AI copilot that drives the canvas with plain language"],"links":[["Ask about TestFlight","mailto:support@aiqmanage.com?subject=CutIQ"]]},
- {"slug":"wideiq","shots":"wideiq","name":"WideIQ","brandword":"WideIQ","public":true,"status":"appstore","pitch":"Vertical video, widescreen result. On your iPhone, no upload.","blurb":"Turn a portrait clip into a real landscape video in 1080p or 4K, with blur fill or crop fill, then save it to Photos or share it anywhere.","features":["Blur fill or crop fill","1080p or 4K H.264 output","No account, no server, no subscription"],"links":[["Product page","../../wideiq/"]]}
+ {
+  "slug": "suiteiq",
+  "shots": "fourseasons",
+  "name": "SuiteIQ",
+  "brandword": "SuiteIQ",
+  "public": true,
+  "status": "testflight",
+  "pitch": "Every luxury hotel and cruise, every date, one screen. Then book through your advisor for the perks.",
+  "blurb": "SuiteIQ reads the public booking feeds of Four Seasons, Waldorf Astoria, Conrad and LXR for 13 months of nightly rates and every room type, plus eleven cruise lines from Seabourn to Virgin Voyages with per-person fares by sailing. Filter by state, brand, month, length or price, tap two calendar days to total a stay, and send a quote request to a Preferred Partner or Virtuoso advisor with everything filled in.",
+  "features": [
+   "67 US luxury hotels with 13 months of lowest nightly rates and 1,500+ room types",
+   "6,500+ cruise sailings across 11 lines, weekend getaways included",
+   "Quote requests that name the advisor amenities: breakfast, credits, upgrades, Virtuoso Voyages",
+   "Live filter counts so a number never promises more than the list shows"
+  ],
+  "links": [
+   [
+    "Ask about TestFlight",
+    "mailto:support@aiqmanage.com?subject=SuiteIQ"
+   ]
+  ],
+  "privacy": "Rates are read from the hotels' and cruise lines' own public booking sites. Your name, email and advisor list stay on your device."
+ },
+ {
+  "slug": "readiq",
+  "shots": "reader",
+  "name": "ReadIQ: Article Reader",
+  "brandword": "ReadIQ",
+  "public": true,
+  "status": "testflight",
+  "pitch": "Paste a link, read it clean. Any article, reader mode, saved for later, read aloud.",
+  "blurb": "ReadIQ opens the page in a real browser, keeps only the article, and shows the text with your typography. Save articles to read offline, listen with the device voice, and share from Safari straight into the app. When a site refuses a server, the app reads it on your iPhone with your own logins.",
+  "features": [
+   "Reader mode for any page, with size, serif or sans, and light, sepia or dark themes",
+   "Offline library with full text",
+   "Listen mode, tap a paragraph to jump",
+   "Share-sheet extension and bookmarklet"
+  ],
+  "links": [
+   [
+    "Ask about TestFlight",
+    "mailto:support@aiqmanage.com?subject=ReadIQ"
+   ]
+  ],
+  "privacy": "Articles you save stay in the app. Nothing is sent anywhere except to the site you asked to read."
+ },
+ {
+  "slug": "cutiq",
+  "shots": "cutiq",
+  "name": "CutIQ",
+  "brandword": "CutIQ",
+  "public": true,
+  "status": "testflight",
+  "pitch": "A design studio for your Silhouette cutter, iPad first, with an AI copilot.",
+  "blurb": "Draw, type, size and weld designs on a 12 by 12 or 12 by 24 mat, in inches or millimetres, then export true-size SVG, DXF or PNG for Silhouette Studio. Twelve bundled fonts plus runtime font install, image tracing, offset and weld, layers and undo.",
+  "features": [
+   "DXF export that Silhouette Studio imports for free",
+   "Text to real cut paths in 12 fonts, install more at runtime",
+   "Trace a photo into a cuttable shape",
+   "AI copilot that drives the canvas with plain language"
+  ],
+  "links": [
+   [
+    "Ask about TestFlight",
+    "mailto:support@aiqmanage.com?subject=CutIQ"
+   ]
+  ]
+ },
+ {
+  "slug": "wideiq",
+  "shots": "wideiq",
+  "name": "WideIQ",
+  "brandword": "WideIQ",
+  "public": true,
+  "status": "appstore",
+  "pitch": "Vertical video, widescreen result. On your iPhone, no upload.",
+  "blurb": "Turn a portrait clip into a real landscape video in 1080p or 4K, with blur fill or crop fill, then save it to Photos or share it anywhere.",
+  "features": [
+   "Blur fill or crop fill",
+   "1080p or 4K H.264 output",
+   "No account, no server, no subscription"
+  ],
+  "links": [
+   [
+    "Product page",
+    "../../wideiq/"
+   ]
+  ]
+ },
+ {
+  "slug": "linguaiq",
+  "shots": "lingua",
+  "name": "LinguaIQ",
+  "public": true,
+  "status": "hub",
+  "pitch": "Spin the globe, tap a country, learn its language with an AI tutor that corrects you.",
+  "blurb": "A 3D globe opens any country into facts, languages and dialect briefings. The tutor holds a conversation in the language you pick, corrects you as you go, speaks in native voices and turns anything you practice into flashcards.",
+  "features": [
+   "Every country on a spinning globe with language and dialect notes",
+   "Conversation tutor with live corrections",
+   "Text to speech in 22 languages, speech to text for your replies",
+   "Illustrated flashcards"
+  ],
+  "links": [
+   [
+    "Ask about access",
+    "mailto:support@aiqmanage.com?subject=LinguaIQ"
+   ]
+  ]
+ },
+ {
+  "slug": "chess-master",
+  "shots": "chess",
+  "name": "Chess Master IQ",
+  "brandword": "Chess Master",
+  "public": true,
+  "status": "testflight",
+  "pitch": "3D chess against Stockfish, with a coach who explains the position.",
+  "blurb": "A gold-and-walnut 3D board, a Stockfish opponent at any strength, and a coach that reviews your moves in plain language. Play, analyze, replay.",
+  "features": [
+   "Adjustable Stockfish opponent",
+   "Move-by-move coaching",
+   "3D board you can orbit and zoom"
+  ],
+  "links": [
+   [
+    "Ask about TestFlight",
+    "mailto:support@aiqmanage.com?subject=Chess%20Master%20IQ"
+   ]
+  ]
+ },
+ {
+  "slug": "stackr",
+  "shots": "game",
+  "name": "Stackr",
+  "public": true,
+  "status": "testflight",
+  "pitch": "One tap, one block. Stack the tower as high as your timing allows.",
+  "blurb": "A clean one-tap tower game with no ads, no account and nothing to buy. Blocks slide in, you tap to drop, the overhang gets cut, and the tower narrows until it can't.",
+  "features": [
+   "One control, instant restart",
+   "Works offline",
+   "No ads, no tracking"
+  ],
+  "links": [
+   [
+    "App Review demo video",
+    "../../review/"
+   ]
+  ]
+ },
+ {
+  "slug": "image-studio",
+  "shots": "imagine",
+  "name": "Image Studio",
+  "public": true,
+  "status": "testflight",
+  "pitch": "Generate and transform images with Flux on your own hardware.",
+  "blurb": "Text to image and photo to image up to 4K, rendered by a Flux pipeline running on the AiQ studio machine rather than a public service. Your prompts and photos stay on your own network.",
+  "features": [
+   "Text to image and image to image",
+   "Up to 4K output",
+   "Runs on private hardware, not a public API"
+  ],
+  "links": [
+   [
+    "Ask about access",
+    "mailto:support@aiqmanage.com?subject=Image%20Studio"
+   ]
+  ]
+ },
+ {
+  "slug": "mixiq",
+  "shots": "mixiq",
+  "name": "MixIQ",
+  "public": true,
+  "status": "hub",
+  "pitch": "An AI music studio: prompt to track, with EDM presets and a growing library.",
+  "blurb": "Describe a track, pick a preset, render it on the studio GPU with Stable Audio, ACE with lyrics, or MusicGen, then play and keep it in a library.",
+  "features": [
+   "Three generation engines",
+   "EDM presets",
+   "Track library with player"
+  ],
+  "links": [
+   [
+    "Ask about access",
+    "mailto:support@aiqmanage.com?subject=MixIQ"
+   ]
+  ]
+ },
+ {
+  "slug": "garageiq",
+  "shots": "garageiq_store",
+  "name": "GarageIQ",
+  "public": true,
+  "status": "testflight",
+  "pitch": "Vehicle care for any car: oil, service, seasonal checklists, dash lights decoded, SOS.",
+  "blurb": "Track oil use and services, run seasonal checklists, decode dashboard warning lights and OBD codes, and keep roadside SOS details one tap away. Reminders are local notifications; nothing leaves the phone.",
+  "features": [
+   "Oil and service log with native reminders",
+   "Seasonal checklists",
+   "Dashboard and OBD code decoder",
+   "Roadside SOS card"
+  ],
+  "links": [
+   [
+    "Support",
+    "../../garageiq/support.html"
+   ],
+   [
+    "Privacy",
+    "../../garageiq/privacy.html"
+   ]
+  ],
+  "privacy": "All data stays on your device. No account, no server."
+ },
+ {
+  "slug": "nightiq",
+  "shots": "nightiq_store",
+  "name": "NightIQ Sleep",
+  "brandword": "NightIQ",
+  "public": true,
+  "status": "appstore",
+  "pitch": "Your night, measured on device: snoring, quiet gaps, a full timeline.",
+  "blurb": "NightIQ records your night with the iPhone microphone and tells you what it heard. Everything is analysed on the phone; audio never leaves your device.",
+  "features": [
+   "Snore detection and timeline",
+   "On-device analysis",
+   "No account, no upload"
+  ],
+  "links": [
+   [
+    "Product page",
+    "../../nightiq/"
+   ]
+  ],
+  "privacy": "Audio never leaves your device."
+ },
+ {
+  "slug": "roomsnap",
+  "name": "RoomSnap",
+  "public": true,
+  "status": "testflight",
+  "pitch": "Scan a room with LiDAR and get its dimensions and layout in seconds.",
+  "blurb": "RoomSnap uses the iPhone Pro's LiDAR scanner and Apple's RoomPlan to capture a room's walls, doors and windows as you walk it, then gives you measurements you can use.",
+  "features": [
+   "LiDAR room capture",
+   "Walls, doors and windows detected",
+   "Measurements and export"
+  ],
+  "links": [
+   [
+    "Ask about TestFlight",
+    "mailto:support@aiqmanage.com?subject=RoomSnap"
+   ]
+  ]
+ },
+ {
+  "slug": "vitalsiq",
+  "name": "VitalsIQ",
+  "public": true,
+  "status": "testflight",
+  "pitch": "Pulse, oxygen, breathing and blood pressure from Apple Watch and HealthKit, in one view.",
+  "blurb": "A native iPhone and Apple Watch companion that reads heart rate, blood oxygen and respiratory rate from the watch sensors and blood pressure from a connected cuff through HealthKit.",
+  "features": [
+   "Apple Watch sensors",
+   "Blood pressure via HealthKit",
+   "History and trends"
+  ],
+  "links": [
+   [
+    "Ask about TestFlight",
+    "mailto:support@aiqmanage.com?subject=VitalsIQ"
+   ]
+  ],
+  "privacy": "Health data is read through HealthKit and stays on your devices."
+ },
+ {
+  "slug": "caddieiq",
+  "name": "CaddieIQ",
+  "public": true,
+  "status": "soon",
+  "pitch": "An AI caddie and swing coach: 240fps swing analysis and your own club distances.",
+  "blurb": "Range Mode films your swing at 240 frames per second and builds a personal distance profile for every club. GPS caddie and LiDAR green reading follow.",
+  "features": [
+   "240fps swing capture",
+   "Club distance engine",
+   "GPS caddie (coming)"
+  ],
+  "links": [
+   [
+    "Ask about access",
+    "mailto:support@aiqmanage.com?subject=CaddieIQ"
+   ]
+  ]
+ },
+ {
+  "slug": "pantryiq",
+  "name": "PantryIQ",
+  "public": true,
+  "status": "soon",
+  "pitch": "A keto pantry and meal companion with AI, priced honestly.",
+  "blurb": "Plan keto meals, track the pantry and ask the assistant, with an optional monthly plan for heavy AI use or bring your own key.",
+  "features": [
+   "Keto planning",
+   "Pantry tracking",
+   "AI assistant with a fair billing model"
+  ],
+  "links": [
+   [
+    "Ask about access",
+    "mailto:support@aiqmanage.com?subject=PantryIQ"
+   ]
+  ]
+ },
+ {
+  "slug": "one-line",
+  "name": "One Line",
+  "public": true,
+  "status": "soon",
+  "pitch": "A one-stroke puzzle: draw every edge without lifting your finger.",
+  "blurb": "Hundreds of one-stroke puzzles, from calm to fiendish, for iPhone and Android.",
+  "features": [
+   "One-stroke puzzles",
+   "iOS and Android"
+  ],
+  "links": [
+   [
+    "Ask about access",
+    "mailto:support@aiqmanage.com?subject=One%20Line"
+   ]
+  ]
+ },
+ {
+  "slug": "tip-calculator",
+  "name": "Tip Calculator",
+  "public": true,
+  "status": "testflight",
+  "pitch": "Fast, clean tip and split math.",
+  "blurb": "Enter the bill, pick the tip, split it. Nothing else on the screen.",
+  "features": [
+   "Tip and split in two taps",
+   "No ads"
+  ],
+  "links": [
+   [
+    "Ask about TestFlight",
+    "mailto:support@aiqmanage.com?subject=Tip%20Calculator"
+   ]
+  ]
+ }
 ]

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<title>Members — AiQ Manage</title>
+<style>
+:root{--bg:#0b0e14;--panel:#151a24;--line:#2a3345;--text:#e8ecf4;--dim:#9aa5b8;--gold:#e8b33c;--blue:#5aa9ff;--sat:env(safe-area-inset-top,0px)}
+*{margin:0;padding:0;box-sizing:border-box}html,body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:17px;line-height:1.6;min-height:100%}
+a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:560px;margin:0 auto;padding:calc(48px + var(--sat)) 20px 60px;text-align:center}
+.mark{width:180px;height:108px;margin:0 auto 10px;display:block}
+h1{font-size:30px;font-weight:800;letter-spacing:-.3px;margin:6px 0}
+.lead{color:var(--dim);font-size:18px;margin:8px 0 24px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px;text-align:left}
+.card p{color:#d3d9e6;margin:10px 0}
+.status{display:flex;align-items:center;gap:10px;font-weight:600;color:var(--dim);font-size:15px;justify-content:center;margin-bottom:18px}
+.dot{width:10px;height:10px;border-radius:50%;background:#6b7280;box-shadow:0 0 0 3px rgba(107,114,128,.25)}
+.dot.on{background:#34d399;box-shadow:0 0 0 3px rgba(52,211,153,.25)}
+.dot.off{background:#f87171;box-shadow:0 0 0 3px rgba(248,113,113,.25)}
+.btn{display:inline-block;background:var(--gold);color:#0b0e14;font-weight:800;border-radius:12px;padding:12px 18px;margin-top:8px}
+.btn:hover{text-decoration:none;filter:brightness(1.08)}
+.muted{color:var(--dim);font-size:14px;margin-top:22px}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:16px;color:var(--dim);font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <svg class="mark" viewBox="0 0 300 180" aria-label="AiQ" role="img"><defs><linearGradient id="aiqwm" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="47%" stop-color="#e8b33c"/><stop offset="47%" stop-color="#0b0e14"/><stop offset="53%" stop-color="#0b0e14"/><stop offset="53%" stop-color="#f5f7fb"/></linearGradient></defs><text x="8" y="142" font-family="-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="150" font-weight="900" fill="#e8b33c">A</text><circle cx="124" cy="46" r="16" fill="url(#aiqwm)"/><rect x="111" y="72" width="26" height="70" rx="6" fill="url(#aiqwm)"/><text x="131" y="142" font-family="-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="150" font-weight="900" fill="#f5f7fb">Q</text></svg>
+  <h1>Members</h1>
+  <p class="lead">The AiQ Manage studio, project catalog and private apps.</p>
+  <div class="status" id="status"><span class="dot" id="dot"></span><span id="msg">Checking your access…</span></div>
+  <div class="card" id="card">
+    <p>This area is <strong>invite only</strong>. It runs on a private network and opens automatically for members whose devices are enrolled.</p>
+    <p>If you were given access and see this page, turn on your Tailscale connection and reload.</p>
+    <p>To ask about membership, write to <a href="mailto:support@aiqmanage.com?subject=AiQ%20membership">support@aiqmanage.com</a>.</p>
+  </div>
+  <p class="muted">Not a member? The public apps are on the <a href="../">AiQ Manage home page</a>.</p>
+  <footer>AiQ Manage · <a href="mailto:support@aiqmanage.com">support@aiqmanage.com</a></footer>
+</div>
+<script>
+(function(){
+  // Reachability probe: an image only loads if this device is on the private network. No data is sent.
+  var HUB = 'https://knightswatch.tailb6c44b.ts.net:9443';
+  var dot = document.getElementById('dot'), msg = document.getElementById('msg'), card = document.getElementById('card');
+  var done = false, img = new Image();
+  function ok(){ if (done) return; done = true; dot.className = 'dot on'; msg.textContent = 'Member device recognized. Opening the catalog…'; card.innerHTML = '<p>Welcome back.</p><p><a class="btn" href="' + HUB + '/projects/">Open the project catalog</a></p><p class="muted"><a href="' + HUB + '/home.html">Or go straight to the apps</a></p>'; setTimeout(function(){ location.href = HUB + '/projects/'; }, 900); }
+  function no(){ if (done) return; done = true; dot.className = 'dot off'; msg.textContent = 'This device is not on the members network.'; }
+  img.onload = ok; img.onerror = no; img.src = HUB + '/ping.svg?t=' + Date.now();
+  setTimeout(no, 4000);
+})();
+</script>
+</body>
+</html>
