@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg"><meta name="description" content="Paste a link, read it clean. Any article, reader mode, saved for later, read aloud.">
+<title>ReadIQ: Article Reader — AiQ Manage</title>
+<style>
+:root{--bg:#0b0e14;--panel:#151a24;--line:#2a3345;--text:#e8ecf4;--dim:#9aa5b8;--gold:#e8b33c;--blue:#5aa9ff;--sat:env(safe-area-inset-top,0px)}
+*{margin:0;padding:0;box-sizing:border-box}html,body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:17px;line-height:1.6}
+a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:900px;margin:0 auto;padding:calc(28px + var(--sat)) 20px 60px}
+header.top{display:flex;align-items:center;gap:12px;margin-bottom:24px}header.top svg{width:100px;height:60px;flex:none}header.top .brand{font-weight:800;font-size:19px}.brand b{color:var(--gold)}header.top .home{margin-left:auto;font-size:14.5px;font-weight:600}
+h1{font-size:34px;font-weight:800;margin:6px 0;letter-spacing:-.3px}h2{font-size:15px;text-transform:uppercase;letter-spacing:1.2px;color:var(--gold);margin:30px 0 10px}
+.lead{color:var(--dim);font-size:19px;max-width:62ch}p{margin:12px 0;color:#d3d9e6;max-width:70ch}
+.pill{display:inline-block;background:#221d10;color:var(--gold);border:1px solid #6b5a1f;border-radius:20px;padding:3px 12px;font-size:12.5px;font-weight:700;margin-left:8px;vertical-align:middle}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}.btn{display:inline-block;border:1px solid var(--line);border-radius:12px;padding:10px 16px;font-weight:700;font-size:15px;color:var(--text);background:var(--panel)}.btn.primary{background:var(--gold);color:#0b0e14;border-color:var(--gold)}.btn:hover{text-decoration:none;filter:brightness(1.08)}
+ul{margin:12px 0 12px 22px;max-width:70ch}li{margin:8px 0;color:#d3d9e6}
+.gallery{display:grid;grid-template-columns:repeat(12,1fr);gap:14px;margin:18px 0}figure{margin:0;background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden}figure img{width:100%;height:auto;display:block}figcaption{font-size:12.5px;color:var(--dim);padding:8px 12px;border-top:1px solid var(--line)}
+figure.phone{grid-column:span 4}figure.tablet{grid-column:span 8}figure.desktop{grid-column:span 12}@media(max-width:700px){figure.phone,figure.tablet{grid-column:span 12}}
+footer{margin-top:44px;border-top:1px solid var(--line);padding-top:18px;color:var(--dim);font-size:14px}
+</style></head><body><div class="wrap">
+<header class="top"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 180" aria-label="AiQ" role="img">
+  <!-- AiQ - official brand mark of AIQ Manage (chosen by Oscar 2026-08-26).
+       Gold A and white Q both touch the shared lowercase i, whose dot AND stem
+       are each sliced diagonally: the gold halves finish "Ai", the white halves
+       start "iQ". Colors: gold #e8b33c, white #f5f7fb, slice gap = background
+       (var(--bg) - swap this stop color to match the surface it sits on).
+       For future projects: this AiQ mark is the constant; pair it with the
+       product word ("Manage" today) set separately beneath or beside it. -->
+  <defs>
+    <linearGradient id="aiq-icut" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="48.5%" stop-color="#e8b33c"/>
+      <stop offset="48.5%" stop-color="var(--bg)"/>
+      <stop offset="51.5%" stop-color="var(--bg)"/>
+      <stop offset="51.5%" stop-color="#f5f7fb"/>
+    </linearGradient>
+  </defs>
+  <text x="8" y="142" font-family="-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="150" font-weight="900" fill="#e8b33c">A</text>
+  <circle cx="124" cy="46" r="16" fill="url(#aiq-icut)"/>
+  <rect x="111" y="72" width="26" height="70" rx="6" fill="url(#aiq-icut)"/>
+  <text x="131" y="142" font-family="-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="150" font-weight="900" fill="#f5f7fb">Q</text>
+</svg>
+<div class="brand">ReadIQ</div><a class="home" href="../../">AiQ Manage</a></header>
+<h1>ReadIQ: Article Reader <span class="pill">TestFlight</span></h1>
+<p class="lead">Paste a link, read it clean. Any article, reader mode, saved for later, read aloud.</p>
+<div class="btns"><a class="btn primary" href="mailto:support@aiqmanage.com?subject=ReadIQ">Ask about TestFlight</a></div>
+<h2>What it does</h2><p>ReadIQ opens the page in a real browser, keeps only the article, and shows the text with your typography. Save articles to read offline, listen with the device voice, and share from Safari straight into the app. When a site refuses a server, the app reads it on your iPhone with your own logins.</p><ul><li>Reader mode for any page, with size, serif or sans, and light, sepia or dark themes</li><li>Offline library with full text</li><li>Listen mode, tap a paragraph to jump</li><li>Share-sheet extension and bookmarklet</li></ul>
+<h2>Screens</h2><div class="gallery"><figure class="phone"><img src="phone.webp" alt="ReadIQ: Article Reader on iPhone" loading="lazy"><figcaption>iPhone</figcaption></figure><figure class="tablet"><img src="tablet.webp" alt="ReadIQ: Article Reader on iPad" loading="lazy"><figcaption>iPad</figcaption></figure><figure class="desktop"><img src="desktop.webp" alt="ReadIQ: Article Reader on Mac / web" loading="lazy"><figcaption>Mac / web</figcaption></figure></div>
+<h2>Privacy</h2><p>Articles you save stay in the app. Nothing is sent anywhere except to the site you asked to read.</p>
+<footer>AiQ Manage · <a href="mailto:support@aiqmanage.com">support@aiqmanage.com</a> · <a href="../../privacy/">Privacy</a> · <a href="../../support/">Support</a></footer>
+</div></body></html>
