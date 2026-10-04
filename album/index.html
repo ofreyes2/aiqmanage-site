@@ -48,6 +48,19 @@ button{font:inherit;cursor:pointer;border:none;border-radius:12px}
 .tile .vid .nm{font-size:11.5px;color:var(--dim);max-width:88%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}
 .empty{color:var(--dim);text-align:center;padding:60px 20px;font-size:15.5px}
 
+/* sets */
+.sets{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px}
+.chip{background:var(--panel);border:1px solid var(--line);color:var(--dim);font-weight:700;font-size:13.5px;padding:8px 13px;border-radius:999px;display:inline-flex;align-items:center;gap:6px}
+.chip.on{border-color:#6b5a1f;color:var(--gold);background:#221d10}
+.chip .c{font-size:11.5px;opacity:.8}
+.setdesc{color:var(--dim);font-size:13.5px;margin:-4px 0 12px}
+.sech{grid-column:1/-1;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);font-weight:800;margin:10px 0 0;padding-top:8px;border-top:1px solid var(--line)}
+.sech:first-child{border-top:none;margin-top:0;padding-top:0}
+.tile .lbl{position:absolute;left:0;right:0;bottom:0;padding:16px 8px 6px;font-size:11.5px;font-weight:700;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.75));white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#upset{display:none;align-items:center;gap:8px;margin:0 0 12px;flex-wrap:wrap}
+#upset select,#upset input{font:inherit;background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:10px;padding:8px 10px;font-size:14px}
+#upset .lbl{color:var(--dim);font-size:13.5px;font-weight:600}
+
 /* lightbox */
 #lb{display:none;position:fixed;inset:0;background:rgba(5,7,11,.96);z-index:50;flex-direction:column}
 #lb.open{display:flex}
@@ -106,6 +119,13 @@ button{font:inherit;cursor:pointer;border:none;border-radius:12px}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12a8 8 0 11-2.3-5.6M20 3v5h-5"/></svg>Refresh
       </button>
     </div>
+    <div id="upset">
+      <span class="lbl">Upload into</span>
+      <select id="upsel"></select>
+      <input id="upnew" placeholder="New set name" style="display:none">
+    </div>
+    <div class="sets" id="sets"></div>
+    <div class="setdesc" id="setdesc"></div>
     <div id="prog"><div class="lbl" id="proglbl"></div><div class="track"><div class="fill" id="progfill"></div></div></div>
     <div class="grid" id="grid"></div>
     <div class="empty" id="empty" style="display:none">No photos or videos yet. Tap Upload to add some.</div>
@@ -139,6 +159,20 @@ var key = "";
 var owner = false;  // owner keys: view/download/upload/delete; family: view/download ONLY
 var items = [];     // [{name,size,type,ts}]
 var cur = -1;
+var view = [];      // items currently shown (filtered by set), in grid order
+var curSet = "All";
+// Sets are encoded in the file name: "[Set - Subset] Title.ext". No prefix = "Other".
+var DEFAULT_SETS = ["BOA - Prelims", "BOA - Finals", "Cross Country"];
+var SET_DESC = {
+  "BOA - Prelims": "Bands of America Iowa Regional, UNI Dome, October 3, 2026. Preliminary performances.",
+  "BOA - Finals": "Bands of America Iowa Regional finals. Plainfield Central was one of the twelve finalists.",
+  "Cross Country": "Lucy racing at Plainfield Central, visiting from Naperville Central."
+};
+function parseSet(name){
+  var m = /^\[([^\]]+)\]\s*(.*)$/.exec(name);
+  return m ? {set: m[1].trim(), title: m[2] || name} : {set: "Other", title: name};
+}
+function setLabel(s){ return s.replace(/\s*-\s*/g, " · "); }
 
 function $(id){ return document.getElementById(id); }
 function mediaURL(name){ return BASE + "/album/media/" + encodeURIComponent(name) + "?k=" + encodeURIComponent(key); }
@@ -186,23 +220,76 @@ function refresh(){
 }
 $("refresh").addEventListener("click", refresh);
 
+function allSets(){
+  var seen = {}; var out = [];
+  DEFAULT_SETS.concat(items.map(function(it){ return parseSet(it.name).set; })).forEach(function(s){
+    if (!seen[s]){ seen[s] = 0; out.push(s); }
+  });
+  items.forEach(function(it){ seen[parseSet(it.name).set]++; });
+  // "Other" last
+  out.sort(function(a, b){ return (a === "Other") - (b === "Other"); });
+  return out.map(function(s){ return {set: s, n: seen[s] || 0}; });
+}
+function renderSets(){
+  var sets = allSets();
+  var bar = $("sets"); bar.innerHTML = "";
+  [{set: "All", n: items.length}].concat(sets).forEach(function(s){
+    if (s.set === "Other" && !s.n) return;
+    var c = document.createElement("button");
+    c.className = "chip" + (curSet === s.set ? " on" : "");
+    c.innerHTML = "<span></span><span class='c'></span>";
+    c.firstChild.textContent = setLabel(s.set); c.lastChild.textContent = s.n;
+    c.addEventListener("click", function(){ curSet = s.set; render(); });
+    bar.appendChild(c);
+  });
+  $("setdesc").textContent = SET_DESC[curSet] || "";
+  // upload target
+  var sel = $("upsel"); var keep = sel.value; sel.innerHTML = "";
+  sets.filter(function(s){ return s.set !== "Other"; }).forEach(function(s){
+    var o = document.createElement("option"); o.value = s.set; o.textContent = setLabel(s.set); sel.appendChild(o);
+  });
+  var on = document.createElement("option"); on.value = "__new__"; on.textContent = "New set…"; sel.appendChild(on);
+  var oo = document.createElement("option"); oo.value = ""; oo.textContent = "No set"; sel.appendChild(oo);
+  sel.value = (keep && Array.prototype.some.call(sel.options, function(o){ return o.value === keep; })) ? keep : (curSet !== "All" && curSet !== "Other" ? curSet : sel.options[0].value);
+  $("upnew").style.display = sel.value === "__new__" ? "inline-block" : "none";
+  $("upset").style.display = owner ? "flex" : "none";
+}
+$("upsel").addEventListener("change", function(){ $("upnew").style.display = this.value === "__new__" ? "inline-block" : "none"; });
+
 function render(){
+  renderSets();
   var g = $("grid");
   g.innerHTML = "";
-  $("count").textContent = items.length ? items.length + " item" + (items.length === 1 ? "" : "s") : "";
-  $("empty").style.display = items.length ? "none" : "block";
-  items.forEach(function(it, i){
+  view = items.filter(function(it){ return curSet === "All" || parseSet(it.name).set === curSet; });
+  // group order: sets in bar order, newest first inside a set
+  var order = allSets().map(function(s){ return s.set; });
+  view.sort(function(a, b){
+    var sa = order.indexOf(parseSet(a.name).set), sb = order.indexOf(parseSet(b.name).set);
+    if (sa !== sb) return sa - sb;
+    return (b.ts || 0) - (a.ts || 0);
+  });
+  $("count").textContent = view.length ? view.length + " item" + (view.length === 1 ? "" : "s") : "";
+  $("empty").style.display = view.length ? "none" : "block";
+  var lastSet = null;
+  view.forEach(function(it, i){
+    var ps = parseSet(it.name);
+    if (curSet === "All" && ps.set !== lastSet){
+      var h = document.createElement("div"); h.className = "sech"; h.textContent = setLabel(ps.set); g.appendChild(h); lastSet = ps.set;
+    }
     var t = document.createElement("div");
     t.className = "tile";
     if (it.type === "image"){
       var im = document.createElement("img");
-      im.loading = "lazy"; im.alt = it.name; im.src = mediaURL(it.name);
+      im.loading = "lazy"; im.alt = ps.title; im.src = mediaURL(it.name);
       t.appendChild(im);
     } else {
       t.innerHTML = "<div class='vid'><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.8'>" +
         "<circle cx='12' cy='12' r='9'/><path d='M10 8.5l6 3.5-6 3.5z' fill='currentColor' stroke='none'/></svg>" +
         "<span class='nm'></span></div>";
-      t.querySelector(".nm").textContent = it.name;
+      t.querySelector(".nm").textContent = ps.title;
+    }
+    if (it.type === "image" || ps.set !== "Other"){
+      var l = document.createElement("div"); l.className = "lbl"; l.textContent = ps.title.replace(/\.[^.]+$/, ""); t.appendChild(l);
     }
     t.addEventListener("click", function(){ openLB(i); });
     g.appendChild(t);
@@ -212,8 +299,9 @@ function render(){
 // ---------- lightbox ----------
 function openLB(i){
   cur = i;
-  var it = items[i];
-  $("lbname").textContent = it.name;
+  var it = view[i];
+  var ps = parseSet(it.name);
+  $("lbname").textContent = (ps.set !== "Other" ? setLabel(ps.set) + "  ·  " : "") + ps.title;
   $("lbdel").style.display = owner ? "flex" : "none";   // delete is owner-only (server enforces too)
   $("upbtn").style.display = owner ? "inline-flex" : "none";  // upload too (Oscar 2026-08-27)
   var st = $("stage");
@@ -236,8 +324,8 @@ function closeLB(){
   cur = -1;
 }
 function step(d){
-  if (!items.length || cur < 0) return;
-  openLB((cur + d + items.length) % items.length);
+  if (!view.length || cur < 0) return;
+  openLB((cur + d + view.length) % view.length);
 }
 $("lbx").addEventListener("click", closeLB);
 $("lbprev").addEventListener("click", function(e){ e.stopPropagation(); step(-1); });
@@ -261,18 +349,18 @@ document.addEventListener("keydown", function(e){
 
 $("lbdl").addEventListener("click", function(){
   if (cur < 0) return;
-  var it = items[cur];
+  var it = view[cur];
   fetch(mediaURL(it.name)).then(function(r){ return r.blob(); }).then(function(b){
     var a = document.createElement("a");
-    a.href = URL.createObjectURL(b); a.download = it.name;
+    a.href = URL.createObjectURL(b); a.download = parseSet(it.name).title;
     document.body.appendChild(a); a.click();
     setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 4000);
   }).catch(function(){ alert("Download failed."); });
 });
 $("lbdel").addEventListener("click", function(){
   if (cur < 0) return;
-  var it = items[cur];
-  if (!confirm("Delete " + it.name + " forever?")) return;
+  var it = view[cur];
+  if (!confirm("Delete " + parseSet(it.name).title + " forever?")) return;
   fetch(BASE + "/album/delete?k=" + encodeURIComponent(key), {
     method: "POST", headers: {"Content-Type": "application/json"},
     body: JSON.stringify({name: it.name})
@@ -307,16 +395,23 @@ function setProg(lbl, frac){
   $("proglbl").textContent = lbl;
   $("progfill").style.width = Math.round(frac * 100) + "%";
 }
+function uploadSet(){
+  var v = $("upsel").value;
+  if (v === "__new__") v = $("upnew").value.trim().replace(/[\[\]]/g, "");
+  return v;
+}
 function uploadOne(f, idx, total){
+  var set = uploadSet();
+  var name = (set ? "[" + set + "] " : "") + f.name;
   var tag = "(" + (idx + 1) + "/" + total + ") " + f.name;
   if (f.size <= CHUNK){
     setProg("Uploading " + tag, 0);
     return f.arrayBuffer().then(function(buf){
-      return api({name: f.name, b64: b64(buf)});
+      return api({name: name, b64: b64(buf)});
     }).then(function(){ setProg("Uploaded " + tag, 1); });
   }
   var uid = null;
-  return api({op: "begin", name: f.name}).then(function(j){
+  return api({op: "begin", name: name}).then(function(j){
     uid = j.upload_id;
     var off = 0;
     function next(){
