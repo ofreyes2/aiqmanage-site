@@ -172,11 +172,12 @@ function defaultSet(){
   return newest ? parseSet(newest.name).set : "All";
 }
 // Sets are encoded in the file name: "[Set - Subset] Title.ext". No prefix = "Other".
-var DEFAULT_SETS = ["BOA - Prelims", "BOA - Finals", "Cross Country"];
+var DEFAULT_SETS = ["BOA - Prelims", "BOA - Finals", "Cross Country", "Stackr - App Review"];
 var SET_DESC = {
   "BOA - Prelims": "Bands of America Iowa Regional, UNI Dome, October 3, 2026. Preliminary performances.",
   "BOA - Finals": "Bands of America Iowa Regional finals. Plainfield Central was one of the twelve finalists.",
-  "Cross Country": "Lucy racing at Plainfield Central, visiting from Naperville Central."
+  "Cross Country": "Lucy racing at Plainfield Central, visiting from Naperville Central.",
+  "Stackr - App Review": "Gameplay recordings of the Stackr game for the Apple App Review submission."
 };
 function parseSet(name){
   var m = /^\[([^\]]+)\]\s*(.*)$/.exec(name);
