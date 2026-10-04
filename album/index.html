@@ -160,7 +160,17 @@ var owner = false;  // owner keys: view/download/upload/delete; family: view/dow
 var items = [];     // [{name,size,type,ts}]
 var cur = -1;
 var view = [];      // items currently shown (filtered by set), in grid order
-var curSet = "All";
+var curSet = "";
+var SETSTORE = "aiq_album_set";
+function defaultSet(){
+  var remembered = "";
+  try { remembered = localStorage.getItem(SETSTORE) || ""; } catch(e){}
+  var have = {}; items.forEach(function(it){ have[parseSet(it.name).set] = true; });
+  if (remembered && (remembered === "All" || have[remembered])) return remembered;
+  var newest = null;
+  items.forEach(function(it){ if (!newest || (it.ts || 0) > (newest.ts || 0)) newest = it; });
+  return newest ? parseSet(newest.name).set : "All";
+}
 // Sets are encoded in the file name: "[Set - Subset] Title.ext". No prefix = "Other".
 var DEFAULT_SETS = ["BOA - Prelims", "BOA - Finals", "Cross Country"];
 var SET_DESC = {
@@ -223,7 +233,7 @@ $("refresh").addEventListener("click", refresh);
 function allSets(){
   var seen = {}; var out = [];
   DEFAULT_SETS.concat(items.map(function(it){ return parseSet(it.name).set; })).forEach(function(s){
-    if (!seen[s]){ seen[s] = 0; out.push(s); }
+    if (!Object.prototype.hasOwnProperty.call(seen, s)){ seen[s] = 0; out.push(s); }
   });
   items.forEach(function(it){ seen[parseSet(it.name).set]++; });
   // "Other" last
@@ -239,7 +249,7 @@ function renderSets(){
     c.className = "chip" + (curSet === s.set ? " on" : "");
     c.innerHTML = "<span></span><span class='c'></span>";
     c.firstChild.textContent = setLabel(s.set); c.lastChild.textContent = s.n;
-    c.addEventListener("click", function(){ curSet = s.set; render(); });
+    c.addEventListener("click", function(){ curSet = s.set; try { localStorage.setItem(SETSTORE, s.set); } catch(e){} render(); });
     bar.appendChild(c);
   });
   $("setdesc").textContent = SET_DESC[curSet] || "";
@@ -257,6 +267,7 @@ function renderSets(){
 $("upsel").addEventListener("change", function(){ $("upnew").style.display = this.value === "__new__" ? "inline-block" : "none"; });
 
 function render(){
+  if (!curSet) curSet = defaultSet();
   renderSets();
   var g = $("grid");
   g.innerHTML = "";
