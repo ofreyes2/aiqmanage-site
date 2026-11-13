@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#06050b">
+<meta name="description" content="RaveIQ: non-stop dance radio from around the world. 479 live stations from 54 countries in nine energy lanes, playable right here in your browser. By AiQ Manage.">
+<meta property="og:title" content="RaveIQ — non-stop dance radio from around the world">
+<meta property="og:description" content="Pick an energy lane and press start. 479 live stations, 54 countries, nine lanes from Mainstage to Hardcore. Plays in the browser.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://aiqmanage.com/raveiq/">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="stylesheet" href="raveiq.css">
+<title>RaveIQ — non-stop dance radio · AiQ Manage</title>
+</head>
+<body>
+<div class="sitebar"><div class="in"><a class="aiq" href="../" title="AiQ Manage home"><svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="aiqc" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="46%" stop-color="#e8b33c"/><stop offset="46%" stop-color="#0b0e14"/><stop offset="54%" stop-color="#0b0e14"/><stop offset="54%" stop-color="#f5f7fb"/></linearGradient></defs><rect width="64" height="64" rx="14" fill="#0b0e14"/><g transform="translate(2,7) scale(0.2)"><text x="8" y="142" font-family="Arial,Helvetica,sans-serif" font-size="150" font-weight="900" fill="#e8b33c">A</text><circle cx="124" cy="46" r="16" fill="url(#aiqc)"/><rect x="111" y="72" width="26" height="70" rx="6" fill="url(#aiqc)"/><text x="131" y="142" font-family="Arial,Helvetica,sans-serif" font-size="150" font-weight="900" fill="#f5f7fb">Q</text></g></svg><span>Ai<b>Q</b> Manage</span></a><span class="sp"></span><span class="app">RaveIQ web player</span></div></div>
+<header><div class="wrap">
+  <div class="top">
+    <div class="logo">RaveIQ</div>
+    <div class="tag" id="tagline">Non-stop energy from around the world</div>
+    <button class="iconbtn" id="bStageTop" aria-label="Stage mode"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+  </div>
+  <div class="tabs" id="tabs">
+    <button data-t="live" class="on">Live</button><button data-t="dj">DJ</button><button data-t="saved">Saved</button>
+  </div>
+</div></header>
+
+<main class="wrap">
+<section id="t-live" class="on">
+  <div class="hero">
+    <h1 id="heroT">Mainstage</h1>
+    <p id="heroP"></p>
+    <div class="go">
+      <button class="btn pri" id="bStart"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg><span>Start the energy</span></button>
+      <button class="btn" id="bTour"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></svg><span>World Tour</span></button>
+    </div>
+  </div>
+  <div class="lbl">Energy lane</div><div class="chips" id="laneChips"></div>
+  <div class="lbl">Where from</div><div class="chips" id="contChips"></div><div class="chips" id="ctryChips" style="margin-top:6px"></div>
+  <div style="margin-top:12px"><input id="q" type="search" placeholder="Search stations" autocomplete="off"></div>
+  <div class="list" id="list"></div>
+  <button class="btn sm more" id="bMore" style="display:none">Show more</button>
+  <p class="note" id="liveNote">Live streams in your browser, nothing stored here. This page is https, so only secure (https) streams can play; a station marked <span class="warn">Blocked here</span> has a plain http stream and plays in the iPhone app instead. Catalog checked <span class="asof2"></span>.</p>
+  <footer class="site"><span>RaveIQ by <a href="../">AiQ Manage</a></span><span>Also on iPhone, iPad and Apple Watch (App Store, in review)</span><a href="mailto:support@aiqmanage.com">support@aiqmanage.com</a></footer>
+</section>
+
+
+<section id="t-dj">
+  <div class="card"><h3>Tell the DJ what you want</h3><p>Describe the mood. The DJ picks the lane, the countries and the stations and starts playing.</p>
+    <div class="row"><input id="dq" type="text" placeholder="Harder and faster, somewhere in Europe" autocomplete="off"><button class="btn pri" id="bDj"><span>Play</span></button></div>
+    <div class="chips" id="djChips" style="margin-top:10px"></div>
+    <div class="say" id="djSay"></div>
+  </div>
+</section>
+
+<section id="t-saved">
+  <div class="lbl">Favorites</div><div class="list" id="favList"></div>
+  <div class="card"><h3>Find more stations</h3><p>Search the worldwide directory by name or style and add what you like.</p>
+    <div class="row"><input id="fq" type="search" placeholder="Station name or style, for example frenchcore" autocomplete="off"><button class="btn" id="bFind">Find</button></div>
+    <div class="list" id="findList"></div>
+  </div>
+  <div class="card"><h3>World Tour</h3><p>Hop to a station in another country on a timer. The music never stops.</p><div class="seg" id="tourSeg"></div></div>
+  <div class="card"><h3>Sleep timer</h3><p>Stop the music after a while.</p><div class="seg" id="sleepSeg"></div></div>
+  <div class="lbl">Never play</div><div class="list" id="banList"></div>
+  <p class="note">Stations come from the community directory <a href="https://www.radio-browser.info/" rel="noopener">radio-browser.info</a>. Catalog checked <span id="asof"></span>. Each stream belongs to its broadcaster.</p>
+</section>
+</main>
+
+<div id="bar"><div class="in">
+  <div class="np" id="np">
+    <div class="eq"><b></b><b></b><b></b><b></b></div>
+    <div class="meta"><div id="npName">Pick a lane and press start</div><div id="npSub">Loading the station list</div></div>
+    <button class="hb" id="bBan" aria-label="Never play this station"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M5.7 5.7l12.6 12.6"/></svg></button>
+  </div>
+  <div class="ctl">
+    <button class="cb heart" id="bFav" aria-label="Favorite"><svg viewBox="0 0 24 24"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z"/></svg></button>
+    <button class="cb fill" id="bPrev" aria-label="Previous station"><svg viewBox="0 0 24 24"><path d="M6 5h2.4v14H6zM20 5v14L9.5 12z"/></svg></button>
+    <button class="cb fill" id="bPlay" aria-label="Play or pause"><svg viewBox="0 0 24 24" id="icoPlay"><path d="M7 4.5v15l13-7.5z"/></svg></button>
+    <button class="cb fill" id="bNext" aria-label="Next station"><svg viewBox="0 0 24 24"><path d="M15.6 5H18v14h-2.4zM4 5v14l10.5-7z"/></svg></button>
+    <button class="cb" id="bStage" aria-label="Stage mode"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+  </div>
+</div></div>
+<div id="toast"></div>
+
+<div id="stage">
+  <canvas id="viz"></canvas>
+  <button id="sgX" aria-label="Close stage"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <div class="sg" id="sgTop"><div class="logo">RaveIQ</div><div id="sgClock"></div></div>
+  <div class="sg" id="sgBot"><div id="sgLane"></div><div id="sgName"></div><div id="sgTitle"></div><div id="sgMeta"></div></div>
+  <div id="sgHint">Left and right change station. Up and down change lane. OK pauses. Back closes.</div>
+  <div id="gate"><button class="btn pri" id="bGate"><svg viewBox="0 0 24 24" style="width:1em;height:1em"><path d="M7 4.5v15l13-7.5z"/></svg><span>Press OK to start</span></button></div>
+</div>
+<script>
+// Station list first (one small JSON, no audio stored anywhere), then the player.
+(function () {
+  var sub = document.getElementById('npSub');
+  fetch('stations.json', {cache: 'no-cache'}).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }).then(function (seed) {
+    window.__SEED = seed; var s = document.createElement('script'); s.src = 'raveiq.js'; document.body.appendChild(s);
+  }).catch(function (e) { sub.textContent = 'Could not load the station list. Reload the page.'; console.error('stations.json', e); });
+})();
+</script>
+</body>
+</html>
