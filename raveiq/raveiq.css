@@ -128,3 +128,5 @@ section{display:none}section.on{display:block}
 footer.site{color:var(--dim);font-size:12.5px;margin:26px 0 0;padding-top:14px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
 footer.site a{color:var(--b);text-decoration:none}
 footer.site a:hover{text-decoration:underline}
+
+a.btn{color:var(--tx);text-decoration:none;font-size:inherit}
